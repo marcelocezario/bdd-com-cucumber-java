@@ -11,7 +11,6 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import cucumber.api.PendingException;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -20,7 +19,7 @@ import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
 
 public class InserirContasSteps {
-	
+
 	private WebDriver driver;
 
 	@Dado("^que estou acessando a aplicação$")
@@ -47,8 +46,8 @@ public class InserirContasSteps {
 
 	@Então("^visualizo a página inicial$")
 	public void visualizoAPáginaInicial() throws Throwable {
-		//tag
-		//div[@class='alert alert-success']
+		// tag
+		// div[@class='alert alert-success']
 		String texto = driver.findElement(By.xpath("//div[@class='alert alert-success']")).getText();
 		Assert.assertEquals("Bem vindo, Marcelo Henrique Cezario!", texto);
 	}
@@ -65,7 +64,8 @@ public class InserirContasSteps {
 
 	@Quando("^informo a conta \"([^\"]*)\"$")
 	public void informoAConta(String arg1) throws Throwable {
-		driver.findElement(By.id("nome")).sendKeys(arg1);;
+		driver.findElement(By.id("nome")).sendKeys(arg1);
+		;
 	}
 
 	@Quando("^seleciono Salvar$")
@@ -78,41 +78,41 @@ public class InserirContasSteps {
 		String texto = driver.findElement(By.xpath("//div[@class='alert alert-success']")).getText();
 		Assert.assertEquals("Conta adicionada com sucesso!", texto);
 	}
-	
+
 	@Então("^sou notificado que o nome da conta é obrigatório$")
 	public void souNotificarQueONomeDaContaÉObrigatório() throws Throwable {
 		String texto = driver.findElement(By.xpath("//div[@class='alert alert-danger']")).getText();
 		Assert.assertEquals("Informe o nome da conta", texto);
 	}
-	
+
 	@Então("^sou notificado que já existe uma conta com esse nome$")
 	public void souNotificadoQueJáExisteUmaContaComEsseNome() throws Throwable {
 		String texto = driver.findElement(By.xpath("//div[@class='alert alert-danger']")).getText();
 		Assert.assertEquals("Já existe uma conta com esse nome!", texto);
 	}
-	
+
 	@Então("^recebo a mensagem \"([^\"]*)\"$")
 	public void receboAMensagem(String arg1) throws Throwable {
 		String texto = driver.findElement(By.xpath("//div[starts-with(@class, 'alert alert-')]")).getText();
 		Assert.assertEquals(arg1, texto);
 	}
-	
+
 	@Before
 	public void inicio() {
 		System.out.println("Começando aqui");
 	}
-	
-	@After(order = 1)
+
+	@After(order = 1, value = { "@funcionais" })
 	public void screenshot(Scenario cenario) {
-		File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(file, new File("target/screenshot/" + cenario.getId() +".jpg"));
+			FileUtils.copyFile(file, new File("target/screenshot/" + cenario.getId() + ".jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	@After(order = 0)
+
+	@After(order = 0, value = { "@funcionais" })
 	public void fecharBrowser() {
 		driver.quit();
 		System.out.println("Terminando");
