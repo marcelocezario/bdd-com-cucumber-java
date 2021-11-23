@@ -2,16 +2,15 @@ package br.ce.wcaquino.steps;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Assert;
 
 import br.ce.wcaquino.entidades.Filme;
 import br.ce.wcaquino.entidades.NotaAluguel;
+import br.ce.wcaquino.entidades.TipoAluguel;
 import br.ce.wcaquino.services.AluguelService;
 import br.ce.wcaquino.utils.DateUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.pt.Dado;
 import cucumber.api.java.pt.Então;
 import cucumber.api.java.pt.Quando;
@@ -22,7 +21,7 @@ public class AlugarFilmeSteps {
 	private AluguelService service = new AluguelService();
 	private NotaAluguel nota;
 	private String erro;
-	private String tipoAluguel;
+	private TipoAluguel tipoAluguel = TipoAluguel.COMUM;
 
 	@Dado("^um filme com estoque de (\\d+) unidades$")
 	public void umFilmeComEstoqueDeUnidades(int arg1) throws Throwable {
@@ -61,16 +60,17 @@ public class AlugarFilmeSteps {
 
 	@Dado("^que o tipo do aluguel seja (.*)$")
 	public void queOTipoDoAluguelSejaExtendido(String tipo) throws Throwable {
-		tipoAluguel = tipo;
+		tipoAluguel = tipo.equals("semanal") ? TipoAluguel.SEMANAL
+				: tipo.equals("extendido") ? TipoAluguel.EXTENDIDO : TipoAluguel.COMUM;
 	}
 
 	@Então("^a data de entrega será em (\\d+) dias?$")
 	public void aDataDeEntregaSeráEmDias(int arg1) throws Throwable {
 		Date dataEsperada = DateUtils.obterDataDiferencaDias(arg1);
 		Date dataReal = nota.getDataEntrega();
-		
+
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		
+
 		Assert.assertEquals(format.format(dataEsperada), format.format(dataReal));
 	}
 
