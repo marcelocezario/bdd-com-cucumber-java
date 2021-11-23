@@ -12,10 +12,10 @@ import br.ce.wcaquino.entidades.NotaAluguel;
 import br.ce.wcaquino.entidades.TipoAluguel;
 import br.ce.wcaquino.services.AluguelService;
 import br.ce.wcaquino.utils.DateUtils;
-import cucumber.api.DataTable;
-import cucumber.api.java.pt.Dado;
-import cucumber.api.java.pt.Então;
-import cucumber.api.java.pt.Quando;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.Então;
+import io.cucumber.java.pt.Quando;
 
 public class AlugarFilmeSteps {
 

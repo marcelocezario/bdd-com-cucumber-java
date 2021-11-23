@@ -2,6 +2,7 @@ package br.ce.wcaquino.steps;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -11,12 +12,11 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.pt.Dado;
-import cucumber.api.java.pt.Então;
-import cucumber.api.java.pt.Quando;
+import io.cucumber.core.api.Scenario;
+import io.cucumber.java.After;
+import io.cucumber.java.pt.Dado;
+import io.cucumber.java.pt.Então;
+import io.cucumber.java.pt.Quando;
 
 public class InserirContasSteps {
 
@@ -46,17 +46,17 @@ public class InserirContasSteps {
 		Assert.assertEquals(arg1, texto);
 	}
 
-	@After(order = 1, value = { "@funcionais" })
+	@After(order = 1, value = "@funcionais")
 	public void screenshot(Scenario cenario) {
 		File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		try {
-			FileUtils.copyFile(file, new File("target/screenshot/" + cenario.getId() + ".jpg"));
+			FileUtils.copyFile(file, new File("target/screenshot/" + UUID.randomUUID().toString() + ".jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@After(order = 0, value = { "@funcionais" })
+	@After(order = 0, value = "@funcionais")
 	public void fecharBrowser() {
 		driver.quit();
 		System.out.println("Terminando");

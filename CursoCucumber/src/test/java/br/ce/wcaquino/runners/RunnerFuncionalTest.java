@@ -6,15 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.SnippetType;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.CucumberOptions.SnippetType;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "src/test/resources/features/", 
-		glue = "br.ce.wcaquino.steps", 
-		tags = { "@funcionais" }, 
+		features = "src/test/resources/features/",
+		glue = {"br.ce.wcaquino.steps", "br.ce.wcaquino.config"},
+		tags = { "@funcionais", "not @ignore" }, 
 		plugin = { "pretty", "html:target/report-html",	"json:target/report.json" }, 
 		monochrome = false, 
 		snippets = SnippetType.CAMELCASE, 
