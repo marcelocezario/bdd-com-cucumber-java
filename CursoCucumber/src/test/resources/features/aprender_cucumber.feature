@@ -1,4 +1,5 @@
 # language: pt
+@esse
 Funcionalidade: Aprender Cucumber
 	Como um aluno
 	Eu quero aprender a utilizar Cucumber
@@ -8,17 +9,20 @@ Cenário: Deve executar especificação
 	Dado que criei o arquivo corretamente
 	Quando executá-lo
 	Então a especificação deve finalizar com sucesso
-	
+
+@tipo1	
 Cenário: Deve incrementar contador
 	Dado que o valor do contador é 15
 	Quando eu incrementar em 3
 	Então o valor do contador será 18
-	
+
+@tipo2	
 Cenário: Deve incrementar contador
 	Dado que o valor do contador é 123
 	Quando eu incrementar em 35
 	Então o valor do contador será 158
 	
+@tipo1 @tipo2
 Cenário: Deve calcular o atraso na entrega
 	Dado que a entrega é dia 05/04/2018
 	Quando a entrega atrasar em 2 dias
@@ -44,6 +48,7 @@ Cenário: Deve reaproveitar os steps "Dado" do cenário anterior
   Dado que o nome do passageiro é "Cicrano de Oliveira"
   Dado que o telefone do passageiro é 9888-8888
 
+@ignore
 Cenário: Deve negar todos os steps "Dado" dos cenários anteriores
   Dado que o ticket é CD123
   Dado que o ticket é AG1234
